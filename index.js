@@ -1,4 +1,7 @@
 const clock = document.querySelector("#clock");
+const app = document.querySelector("#app");
+const startScreen = document.querySelector("#startScreen");
+const startButton = document.querySelector("#startButton");
 const minuteMarks = document.querySelector("#minuteMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
@@ -185,6 +188,11 @@ answerButtons.forEach((button) => {
 
     changeAnswerDigit(button.dataset.answerStep, Number(button.dataset.direction));
   });
+});
+
+startButton.addEventListener("click", () => {
+  startScreen.classList.add("app-hidden");
+  app.classList.remove("app-hidden");
 });
 
 createMinuteMarks();

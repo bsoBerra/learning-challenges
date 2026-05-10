@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-  <main class="app" aria-labelledby="app-title">
+    <section class="start-screen" id="startScreen" aria-labelledby="start-title">
+      <h1 id="start-title">Випробування годинник</h1>
+      <button class="show-button start-button" id="startButton" type="button">Розпочати випробування</button>
+    </section>
+
+    <main class="app app-hidden" id="app" aria-labelledby="app-title">
       <section class="clock-panel">
         <div class="clock" id="clock" aria-label="Інтерактивний циферблат">
           <div class="minute-marks" id="minuteMarks" aria-hidden="true"></div>

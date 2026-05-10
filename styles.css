@@ -20,12 +20,29 @@ body {
   padding: 28px;
 }
 
+.start-screen {
+  width: min(520px, 100%);
+  display: grid;
+  justify-items: center;
+  gap: 28px;
+  text-align: center;
+}
+
+.start-button {
+  width: min(360px, 100%);
+  padding: 0 24px;
+}
+
 .app {
   width: min(980px, 100%);
   display: grid;
   grid-template-columns: minmax(300px, 560px) minmax(240px, 310px);
   align-items: center;
   gap: 36px;
+}
+
+.app-hidden {
+  display: none;
 }
 
 .clock-panel {
