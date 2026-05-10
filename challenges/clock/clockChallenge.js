@@ -7,6 +7,9 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
   const showTimeButton = document.querySelector("#showTimeButton");
   const randomTimeButton = document.querySelector("#randomTimeButton");
   const claimPrizeButton = document.querySelector("#claimPrizeButton");
+  const finishConfirmModal = document.querySelector("#clockFinishConfirmModal");
+  const confirmFinishButton = document.querySelector("#confirmFinishButton");
+  const cancelFinishButton = document.querySelector("#cancelFinishButton");
   const digitalTime = document.querySelector("#digitalTime");
   const answerResult = document.querySelector("#answerResult");
   const scoreValue = document.querySelector("#scoreValue");
@@ -79,6 +82,7 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
   function hide() {
     screen.classList.add("app-hidden");
     resultScreen.classList.add("app-hidden");
+    closeFinishConfirmModal();
   }
 
   function show() {
@@ -94,6 +98,7 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
 
   function showResult() {
     currentView = "result";
+    closeFinishConfirmModal();
     winnerGenerationCount.textContent = state.generationCount;
     winnerScore.textContent = state.score;
     screen.classList.add("app-hidden");
@@ -103,6 +108,15 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
 
   function notifyStateChange() {
     onStateChange();
+  }
+
+  function openFinishConfirmModal() {
+    finishConfirmModal.classList.remove("app-hidden");
+    confirmFinishButton.focus();
+  }
+
+  function closeFinishConfirmModal() {
+    finishConfirmModal.classList.add("app-hidden");
   }
 
   function getState() {
@@ -321,7 +335,15 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
       return;
     }
 
+    openFinishConfirmModal();
+  });
+
+  confirmFinishButton.addEventListener("click", () => {
     showResult();
+  });
+
+  cancelFinishButton.addEventListener("click", () => {
+    closeFinishConfirmModal();
   });
 
   answerButtons.forEach((button) => {

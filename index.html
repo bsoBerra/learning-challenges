@@ -79,6 +79,16 @@
         <button class="show-button" id="claimPrizeButton" type="button" disabled>Завершити випробування</button>
         <output class="digital-time hidden" id="digitalTime" aria-live="polite"></output>
       </aside>
+
+      <div class="confirm-modal app-hidden" id="clockFinishConfirmModal" role="dialog" aria-modal="true" aria-labelledby="clock-finish-confirm-title">
+        <div class="confirm-dialog">
+          <h2 id="clock-finish-confirm-title">Завершити випробування?</h2>
+          <div class="confirm-actions">
+            <button class="show-button" id="confirmFinishButton" type="button">Так</button>
+            <button class="show-button secondary-button" id="cancelFinishButton" type="button">Ні</button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <section class="multiplication-screen app-hidden" id="multiplicationScreen" aria-labelledby="multiplication-title">
