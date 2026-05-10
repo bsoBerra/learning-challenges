@@ -19,8 +19,6 @@ const answerDigits = {
 const state = {
   hour: 10,
   minute: 10,
-  activeHand: null,
-  previousMinute: null,
   answerHour: 0,
   answerMinute: 0,
   isChecked: false,
@@ -136,30 +134,6 @@ function changeAnswerDigit(step, direction) {
   renderAnswerTime();
 }
 
-function normalizeDegrees(degrees) {
-  return ((degrees % 360) + 360) % 360;
-}
-
-function pointerDegrees(event) {
-  const rect = clock.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  const radians = Math.atan2(event.clientY - centerY, event.clientX - centerX);
-
-  return normalizeDegrees((radians * 180) / Math.PI + 90);
-}
-
-function pointerMinute(event) {
-  return Math.round(pointerDegrees(event) / 6) % 60;
-}
-
-function setTimeFromHourPointer(event) {
-  const totalMinutes = Math.round(pointerDegrees(event) * 2) % 720;
-
-  state.hour = Math.floor(totalMinutes / 60) % 12;
-  state.minute = totalMinutes % 60;
-}
-
 function hideDigitalTime() {
   digitalTime.classList.add("hidden");
 }
@@ -171,75 +145,6 @@ function renderHands() {
   hourHand.style.setProperty("--rotation", `${hourRotation}deg`);
   minuteHand.style.setProperty("--rotation", `${minuteRotation}deg`);
 }
-
-function setTimeFromPointer(event) {
-  if (state.activeHand === "minute") {
-    const nextMinute = pointerMinute(event);
-
-    if (state.previousMinute !== null) {
-      const rawMinuteDelta = nextMinute - state.previousMinute;
-
-      if (rawMinuteDelta < -30) {
-        state.hour = (state.hour + 1) % 12;
-      }
-
-      if (rawMinuteDelta > 30) {
-        state.hour = (state.hour + 11) % 12;
-      }
-    }
-
-    state.minute = nextMinute;
-    state.previousMinute = nextMinute;
-  }
-
-  if (state.activeHand === "hour") {
-    setTimeFromHourPointer(event);
-  }
-
-  renderHands();
-  hideDigitalTime();
-}
-
-function startDrag(hand, event) {
-  if (state.isChecked) {
-    return;
-  }
-
-  state.activeHand = hand;
-  state.previousMinute = hand === "minute" ? state.minute : null;
-  event.currentTarget.setPointerCapture(event.pointerId);
-  setTimeFromPointer(event);
-}
-
-function stopDrag(event) {
-  if (!state.activeHand) {
-    return;
-  }
-
-  event.currentTarget.releasePointerCapture(event.pointerId);
-  state.activeHand = null;
-  state.previousMinute = null;
-}
-
-hourHand.addEventListener("pointerdown", (event) => startDrag("hour", event));
-minuteHand.addEventListener("pointerdown", (event) => startDrag("minute", event));
-
-hourHand.addEventListener("pointermove", (event) => {
-  if (state.activeHand === "hour") {
-    setTimeFromPointer(event);
-  }
-});
-
-minuteHand.addEventListener("pointermove", (event) => {
-  if (state.activeHand === "minute") {
-    setTimeFromPointer(event);
-  }
-});
-
-hourHand.addEventListener("pointerup", stopDrag);
-minuteHand.addEventListener("pointerup", stopDrag);
-hourHand.addEventListener("pointercancel", stopDrag);
-minuteHand.addEventListener("pointercancel", stopDrag);
 
 showTimeButton.addEventListener("click", () => {
   const isCorrect = state.answerHour === state.hour && state.answerMinute === state.minute;
@@ -262,8 +167,6 @@ randomTimeButton.addEventListener("click", () => {
 
   state.hour = randomInteger(12);
   state.minute = randomInteger(60);
-  state.activeHand = null;
-  state.previousMinute = null;
   state.wasLastAnswerCorrect = false;
 
   resetAnswerTime();

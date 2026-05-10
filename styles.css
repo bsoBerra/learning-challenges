@@ -117,18 +117,10 @@ body {
   border: 0;
   border-radius: 999px;
   background: transparent;
-  cursor: grab;
+  cursor: default;
+  pointer-events: none;
   transform-origin: 50% 100%;
   transform: translateX(-50%) rotate(var(--rotation));
-}
-
-.hand:active {
-  cursor: grabbing;
-}
-
-.hand:focus-visible {
-  outline: 4px solid #f2b705;
-  outline-offset: 5px;
 }
 
 .hand::before {
