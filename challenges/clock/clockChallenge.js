@@ -25,7 +25,7 @@ function createClockChallenge({ onNavigateHome }) {
   const state = {
     hour: 10,
     minute: 10,
-    answerHour: 12,
+    answerHour: 1,
     answerMinute: 0,
     isChecked: false,
     score: 0,
@@ -133,7 +133,7 @@ function createClockChallenge({ onNavigateHome }) {
   }
 
   function resetAnswerTime() {
-    state.answerHour = 12;
+    state.answerHour = 1;
     state.answerMinute = 0;
     renderAnswerTime();
   }
