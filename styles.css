@@ -150,7 +150,7 @@ body {
 }
 
 .minute-hand {
-  height: 210px;
+  height: 178px;
   --rotation: 0deg;
   z-index: 4;
 }
@@ -266,6 +266,6 @@ h1 {
   }
 
   .minute-hand {
-    height: min(43vw, 202px);
+    height: min(37vw, 172px);
   }
 }
