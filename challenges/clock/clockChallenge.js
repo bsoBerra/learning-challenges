@@ -1,4 +1,4 @@
-function createClockChallenge({ onNavigateHome }) {
+function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
   const screen = document.querySelector("#clockChallengeScreen");
   const resultScreen = document.querySelector("#clockResultScreen");
   const minuteMarks = document.querySelector("#minuteMarks");
@@ -31,6 +31,25 @@ function createClockChallenge({ onNavigateHome }) {
     score: 0,
     generationCount: 1,
   };
+  let currentView = "challenge";
+
+  function resetState() {
+    state.hour = 10;
+    state.minute = 10;
+    state.answerHour = 1;
+    state.answerMinute = 0;
+    state.isChecked = false;
+    state.score = 0;
+    state.generationCount = 1;
+    currentView = "challenge";
+    setRandomTime();
+    renderScore();
+    renderAnswerTime();
+    clearAnswerResult();
+    setCheckedMode(false);
+    renderHands();
+    hideDigitalTime();
+  }
 
   function createMinuteMarks() {
     for (let minute = 0; minute < 60; minute += 1) {
@@ -63,21 +82,92 @@ function createClockChallenge({ onNavigateHome }) {
   }
 
   function show() {
+    if (currentView === "result") {
+      screen.classList.add("app-hidden");
+      resultScreen.classList.remove("app-hidden");
+      return;
+    }
+
     resultScreen.classList.add("app-hidden");
     screen.classList.remove("app-hidden");
   }
 
   function showResult() {
+    currentView = "result";
     winnerGenerationCount.textContent = state.generationCount;
     winnerScore.textContent = state.score;
     screen.classList.add("app-hidden");
     resultScreen.classList.remove("app-hidden");
+    notifyStateChange();
+  }
+
+  function notifyStateChange() {
+    onStateChange();
+  }
+
+  function getState() {
+    return {
+      ...state,
+      currentView,
+    };
+  }
+
+  function restoreNumber(value, fallback, min, max) {
+    if (!Number.isInteger(value)) {
+      return fallback;
+    }
+
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function renderScore() {
+    scoreValue.textContent = state.score;
+    generationCountValue.textContent = state.generationCount;
+    updateClaimPrizeButton();
+  }
+
+  function renderCheckedState() {
+    if (!state.isChecked) {
+      clearAnswerResult();
+      hideDigitalTime();
+      setCheckedMode(false);
+      return;
+    }
+
+    const isCorrect = answerHourValue() === state.hour && state.answerMinute === state.minute;
+    digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
+    digitalTime.classList.remove("hidden");
+    renderAnswerResult(isCorrect);
+    setCheckedMode(true);
+  }
+
+  function setState(nextState) {
+    if (!nextState || typeof nextState !== "object") {
+      return;
+    }
+
+    state.hour = restoreNumber(nextState.hour, state.hour, 0, 11);
+    state.minute = restoreNumber(nextState.minute, state.minute, 0, 59);
+    state.answerHour = restoreNumber(nextState.answerHour, state.answerHour, 1, 12);
+    state.answerMinute = restoreNumber(nextState.answerMinute, state.answerMinute, 0, 59);
+    state.score = restoreNumber(nextState.score, state.score, 0, 999);
+    state.generationCount = restoreNumber(nextState.generationCount, state.generationCount, 1, 999);
+    state.isChecked = Boolean(nextState.isChecked);
+    currentView = nextState.currentView === "result" ? "result" : "challenge";
+
+    renderScore();
+    renderAnswerTime();
+    renderHands();
+    renderCheckedState();
+
+    if (currentView === "result") {
+      showResult();
+    }
   }
 
   function changeScore(delta) {
     state.score = Math.max(0, state.score + delta);
-    scoreValue.textContent = state.score;
-    updateClaimPrizeButton();
+    renderScore();
 
     if (state.score > 60) {
       showResult();
@@ -86,7 +176,7 @@ function createClockChallenge({ onNavigateHome }) {
 
   function increaseGenerationCount() {
     state.generationCount += 1;
-    generationCountValue.textContent = state.generationCount;
+    renderScore();
   }
 
   function setRandomTime() {
@@ -136,6 +226,7 @@ function createClockChallenge({ onNavigateHome }) {
     state.answerHour = 1;
     state.answerMinute = 0;
     renderAnswerTime();
+    notifyStateChange();
   }
 
   function setAnswerHour(hour) {
@@ -197,6 +288,7 @@ function createClockChallenge({ onNavigateHome }) {
     renderAnswerResult(isCorrect);
     changeScore(isCorrect ? 2 : -1);
     setCheckedMode(true);
+    notifyStateChange();
   });
 
   randomTimeButton.addEventListener("click", () => {
@@ -217,6 +309,7 @@ function createClockChallenge({ onNavigateHome }) {
     setCheckedMode(false);
     renderHands();
     hideDigitalTime();
+    notifyStateChange();
   });
 
   claimPrizeButton.addEventListener("click", () => {
@@ -245,9 +338,13 @@ function createClockChallenge({ onNavigateHome }) {
   setRandomTime();
   renderAnswerTime();
   renderHands();
+  renderScore();
 
   return {
+    getState,
     hide,
+    reset: resetState,
+    setState,
     show,
   };
 }
