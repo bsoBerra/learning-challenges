@@ -192,6 +192,11 @@ randomTimeButton.addEventListener("click", () => {
     changeScore(-1);
   }
 
+  if (state.generationCount >= 8) {
+    showWinnerScreen();
+    return;
+  }
+
   setRandomTime();
 
   resetAnswerTime();
