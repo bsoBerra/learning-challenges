@@ -24,7 +24,6 @@ const state = {
   isChecked: false,
   score: 0,
   generationCount: 1,
-  wasLastAnswerCorrect: false,
 };
 
 function createMinuteMarks() {
@@ -158,20 +157,18 @@ showTimeButton.addEventListener("click", () => {
   digitalTime.classList.remove("hidden");
 
   renderAnswerResult(isCorrect);
-  changeScore(isCorrect ? 1 : -1);
-  state.wasLastAnswerCorrect = isCorrect;
+  changeScore(isCorrect ? 2 : -1);
   setCheckedMode(true);
 });
 
 randomTimeButton.addEventListener("click", () => {
   increaseGenerationCount();
 
-  if (!state.wasLastAnswerCorrect) {
+  if (!state.isChecked) {
     changeScore(-1);
   }
 
   setRandomTime();
-  state.wasLastAnswerCorrect = false;
 
   resetAnswerTime();
   clearAnswerResult();
