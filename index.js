@@ -7,6 +7,7 @@ const randomTimeButton = document.querySelector("#randomTimeButton");
 const digitalTime = document.querySelector("#digitalTime");
 const answerResult = document.querySelector("#answerResult");
 const scoreValue = document.querySelector("#scoreValue");
+const generationCountValue = document.querySelector("#generationCountValue");
 const answerButtons = document.querySelectorAll("[data-answer-step]");
 const answerDigits = {
   hourTens: document.querySelector("[data-answer-digit='hourTens']"),
@@ -24,6 +25,7 @@ const state = {
   answerMinute: 0,
   isChecked: false,
   score: 0,
+  generationCount: 1,
   wasLastAnswerCorrect: false,
 };
 
@@ -51,6 +53,11 @@ function randomInteger(max) {
 function changeScore(delta) {
   state.score = Math.max(0, state.score + delta);
   scoreValue.textContent = state.score;
+}
+
+function increaseGenerationCount() {
+  state.generationCount += 1;
+  generationCountValue.textContent = state.generationCount;
 }
 
 function wrap(value, max) {
@@ -247,6 +254,8 @@ showTimeButton.addEventListener("click", () => {
 });
 
 randomTimeButton.addEventListener("click", () => {
+  increaseGenerationCount();
+
   if (!state.wasLastAnswerCorrect) {
     changeScore(-1);
   }

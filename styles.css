@@ -193,10 +193,11 @@ h1 {
 }
 
 .score {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  min-height: 58px;
+  row-gap: 6px;
+  min-height: 90px;
   padding: 10px 14px;
   border: 2px solid #c9d4dd;
   border-radius: 8px;
