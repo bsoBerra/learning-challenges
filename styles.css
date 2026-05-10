@@ -563,3 +563,167 @@ h1 {
     height: min(37vw, 172px);
   }
 }
+
+@media (max-width: 430px) {
+  body {
+    --page-padding: 12px;
+    --page-gap: 10px;
+  }
+
+  .start-screen,
+  .multiplication-screen,
+  .winner-screen {
+    gap: 16px;
+  }
+
+  .challenge-grid {
+    gap: 12px;
+  }
+
+  .start-button {
+    min-height: 96px;
+    padding: 14px;
+  }
+
+  .app {
+    gap: 12px;
+  }
+
+  .challenge-screen-header {
+    gap: 10px;
+  }
+
+  .challenge-screen-header .secondary-button {
+    min-width: 132px;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.08;
+  }
+
+  .clock {
+    width: min(78vw, 270px, 38dvh);
+    border-width: 10px;
+    box-shadow:
+      0 0 0 5px rgba(255, 255, 255, 0.08),
+      0 12px 0 #ff2e88,
+      0 0 28px rgba(0, 229, 255, 0.3),
+      0 20px 42px rgba(0, 0, 0, 0.32);
+  }
+
+  .clock::before {
+    inset: 22px;
+    border-width: 3px;
+  }
+
+  .tick {
+    width: 34px;
+    height: 34px;
+    margin: -17px;
+    border-width: 2px;
+    font-size: 17px;
+    transform:
+      rotate(var(--angle))
+      translateY(calc((min(78vw, 270px, 38dvh) / -2) + 42px))
+      rotate(calc(var(--angle) * -1));
+  }
+
+  .minute-mark {
+    height: 12px;
+    transform:
+      rotate(var(--angle))
+      translateY(calc((min(78vw, 270px, 38dvh) / -2) + 22px));
+  }
+
+  .hour-hand {
+    width: 16px;
+    height: min(25vw, 92px);
+  }
+
+  .minute-hand {
+    width: 16px;
+    height: min(30vw, 112px);
+  }
+
+  .center-dot {
+    width: 26px;
+    height: 26px;
+    border-width: 5px;
+  }
+
+  .controls {
+    gap: 9px;
+  }
+
+  .score {
+    min-height: 48px;
+    row-gap: 2px;
+  }
+
+  .score-label {
+    font-size: 14px;
+  }
+
+  .score-value {
+    min-width: 34px;
+    font-size: 24px;
+  }
+
+  .answer-time {
+    grid-template-columns: repeat(2, 36px) 12px repeat(2, 36px) 28px;
+    gap: 4px;
+    min-height: 84px;
+    padding: 8px;
+  }
+
+  .answer-digit-control {
+    grid-template-rows: 22px 34px 22px;
+  }
+
+  .digit-button {
+    width: 30px;
+    height: 21px;
+    font-size: 13px;
+  }
+
+  .answer-digit,
+  .answer-separator {
+    font-size: 30px;
+  }
+
+  .answer-digit {
+    width: 34px;
+    height: 34px;
+  }
+
+  .answer-result {
+    width: 28px;
+    height: 34px;
+    font-size: 24px;
+  }
+
+  .show-button {
+    min-height: 40px;
+    font-size: 16px;
+  }
+
+  .digital-time {
+    min-height: 48px;
+    font-size: 30px;
+  }
+
+  .site-footer {
+    gap: 6px;
+    padding-top: 10px;
+  }
+
+  .site-footer h2,
+  .contact-links a {
+    font-size: 14px;
+  }
+
+  .contact-links {
+    gap: 6px 12px;
+  }
+}
