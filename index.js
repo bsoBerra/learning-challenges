@@ -1,7 +1,7 @@
 const clock = document.querySelector("#clock");
 const app = document.querySelector("#app");
 const startScreen = document.querySelector("#startScreen");
-const startButton = document.querySelector("#startButton");
+const clockChallengeButton = document.querySelector("#clockChallengeButton");
 const multiplicationButton = document.querySelector("#multiplicationButton");
 const multiplicationScreen = document.querySelector("#multiplicationScreen");
 const minuteMarks = document.querySelector("#minuteMarks");
@@ -235,7 +235,7 @@ answerButtons.forEach((button) => {
   });
 });
 
-startButton.addEventListener("click", () => {
+clockChallengeButton.addEventListener("click", () => {
   startScreen.classList.add("app-hidden");
   multiplicationScreen.classList.add("app-hidden");
   app.classList.remove("app-hidden");
