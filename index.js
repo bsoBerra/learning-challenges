@@ -55,7 +55,7 @@ function randomInteger(max) {
 }
 
 function updateClaimPrizeButton() {
-  claimPrizeButton.disabled = state.score <= 3;
+  claimPrizeButton.disabled = state.score <= 30;
 }
 
 function showWinnerScreen() {
@@ -71,7 +71,7 @@ function changeScore(delta) {
   scoreValue.textContent = state.score;
   updateClaimPrizeButton();
 
-  if (state.score >= 5) {
+  if (state.score > 60) {
     showWinnerScreen();
   }
 }
@@ -192,7 +192,7 @@ randomTimeButton.addEventListener("click", () => {
     changeScore(-1);
   }
 
-  if (state.generationCount >= 8) {
+  if (state.generationCount > 50) {
     showWinnerScreen();
     return;
   }
