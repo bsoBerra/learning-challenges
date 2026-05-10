@@ -3,6 +3,7 @@ const minuteMarks = document.querySelector("#minuteMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
 const showTimeButton = document.querySelector("#showTimeButton");
+const randomTimeButton = document.querySelector("#randomTimeButton");
 const digitalTime = document.querySelector("#digitalTime");
 
 const state = {
@@ -27,6 +28,10 @@ function pad(value) {
 
 function displayHour() {
   return state.hour === 0 ? 12 : state.hour;
+}
+
+function randomInteger(max) {
+  return Math.floor(Math.random() * max);
 }
 
 function normalizeDegrees(degrees) {
@@ -133,6 +138,16 @@ minuteHand.addEventListener("pointercancel", stopDrag);
 showTimeButton.addEventListener("click", () => {
   digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
   digitalTime.classList.remove("hidden");
+});
+
+randomTimeButton.addEventListener("click", () => {
+  state.hour = randomInteger(12);
+  state.minute = randomInteger(60);
+  state.activeHand = null;
+  state.previousMinute = null;
+
+  renderHands();
+  hideDigitalTime();
 });
 
 createMinuteMarks();
