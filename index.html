@@ -70,9 +70,21 @@
         </div>
         <button class="show-button" id="showTimeButton" type="button">Перевірити</button>
         <button class="show-button" id="randomTimeButton" type="button">Наступний</button>
+        <button class="show-button" id="claimPrizeButton" type="button" disabled>Завершити випробування</button>
         <output class="digital-time hidden" id="digitalTime" aria-live="polite"></output>
       </aside>
     </main>
+
+    <section class="winner-screen app-hidden" id="winnerScreen" aria-labelledby="winner-title">
+      <h1 id="winner-title">Екран завершення випробування</h1>
+      <p class="hint">Випробування завершено. Ваш результат:</p>
+      <div class="winner-stats" aria-live="polite">
+        <span class="score-label">Генерацій</span>
+        <span class="score-value" id="winnerGenerationCount">0</span>
+        <span class="score-label">Рахунок</span>
+        <span class="score-value" id="winnerScore">0</span>
+      </div>
+    </section>
 
     <script src="index.js"></script>
   </body>

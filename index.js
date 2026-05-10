@@ -7,10 +7,14 @@ const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
 const showTimeButton = document.querySelector("#showTimeButton");
 const randomTimeButton = document.querySelector("#randomTimeButton");
+const claimPrizeButton = document.querySelector("#claimPrizeButton");
 const digitalTime = document.querySelector("#digitalTime");
 const answerResult = document.querySelector("#answerResult");
 const scoreValue = document.querySelector("#scoreValue");
 const generationCountValue = document.querySelector("#generationCountValue");
+const winnerScreen = document.querySelector("#winnerScreen");
+const winnerGenerationCount = document.querySelector("#winnerGenerationCount");
+const winnerScore = document.querySelector("#winnerScore");
 const answerButtons = document.querySelectorAll("[data-answer-step]");
 const answerDigits = {
   hourTens: document.querySelector("[data-answer-digit='hourTens']"),
@@ -50,9 +54,26 @@ function randomInteger(max) {
   return Math.floor(Math.random() * max);
 }
 
+function updateClaimPrizeButton() {
+  claimPrizeButton.disabled = state.score <= 3;
+}
+
+function showWinnerScreen() {
+  winnerGenerationCount.textContent = state.generationCount;
+  winnerScore.textContent = state.score;
+  startScreen.classList.add("app-hidden");
+  app.classList.add("app-hidden");
+  winnerScreen.classList.remove("app-hidden");
+}
+
 function changeScore(delta) {
   state.score = Math.max(0, state.score + delta);
   scoreValue.textContent = state.score;
+  updateClaimPrizeButton();
+
+  if (state.score >= 5) {
+    showWinnerScreen();
+  }
 }
 
 function increaseGenerationCount() {
@@ -178,6 +199,14 @@ randomTimeButton.addEventListener("click", () => {
   setCheckedMode(false);
   renderHands();
   hideDigitalTime();
+});
+
+claimPrizeButton.addEventListener("click", () => {
+  if (claimPrizeButton.disabled) {
+    return;
+  }
+
+  showWinnerScreen();
 });
 
 answerButtons.forEach((button) => {
