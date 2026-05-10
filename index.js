@@ -58,6 +58,11 @@ function increaseGenerationCount() {
   generationCountValue.textContent = state.generationCount;
 }
 
+function setRandomTime() {
+  state.hour = randomInteger(12);
+  state.minute = randomInteger(60);
+}
+
 function wrap(value, max) {
   return ((value % max) + max) % max;
 }
@@ -165,8 +170,7 @@ randomTimeButton.addEventListener("click", () => {
     changeScore(-1);
   }
 
-  state.hour = randomInteger(12);
-  state.minute = randomInteger(60);
+  setRandomTime();
   state.wasLastAnswerCorrect = false;
 
   resetAnswerTime();
@@ -187,5 +191,6 @@ answerButtons.forEach((button) => {
 });
 
 createMinuteMarks();
+setRandomTime();
 renderAnswerTime();
 renderHands();
