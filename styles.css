@@ -29,9 +29,27 @@ body {
   text-align: center;
 }
 
+.start-screen {
+  width: min(1120px, 100%);
+  min-height: calc(100vh - 56px);
+  align-content: start;
+  justify-items: start;
+  text-align: left;
+}
+
+.challenge-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+  gap: 18px;
+}
+
 .start-button {
-  width: min(360px, 100%);
-  padding: 0 24px;
+  width: 100%;
+  min-height: 150px;
+  padding: 18px;
+  text-align: left;
+  line-height: 1.25;
 }
 
 .app {
@@ -421,6 +439,14 @@ h1 {
 @media (max-width: 760px) {
   body {
     padding: 18px;
+  }
+
+  .start-screen {
+    min-height: calc(100vh - 36px);
+  }
+
+  .challenge-grid {
+    grid-template-columns: 1fr;
   }
 
   .app {
