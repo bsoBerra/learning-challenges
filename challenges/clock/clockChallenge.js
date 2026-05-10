@@ -35,7 +35,7 @@ function createClockChallenge({ onNavigateHome }) {
   function createMinuteMarks() {
     for (let minute = 0; minute < 60; minute += 1) {
       const mark = document.createElement("span");
-      mark.className = "minute-mark";
+      mark.className = minute % 5 === 0 ? "minute-mark hour-mark" : "minute-mark";
       mark.style.setProperty("--angle", `${minute * 6}deg`);
       minuteMarks.append(mark);
     }

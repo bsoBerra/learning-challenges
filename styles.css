@@ -155,7 +155,7 @@ body {
   z-index: 2;
   transform:
     rotate(var(--angle))
-    translateY(calc((min(74vw, 520px, 64dvh) / -2) + 64px))
+    translateY(calc((min(74vw, 520px, 64dvh) / -2) + 82px))
     rotate(calc(var(--angle) * -1));
 }
 
@@ -180,6 +180,11 @@ body {
     rotate(var(--angle))
     translateY(calc((min(74vw, 520px, 64dvh) / -2) + 30px));
   transform-origin: 50% 50%;
+}
+
+.hour-mark {
+  height: 28px;
+  background: #ffffff;
 }
 
 .tick-12 { --angle: 0deg; --tick-color: #00e5ff; }
@@ -546,7 +551,7 @@ h1 {
   .tick {
     transform:
       rotate(var(--angle))
-      translateY(calc((min(92vw, 500px, 52dvh) / -2) + 58px))
+      translateY(calc((min(92vw, 500px, 52dvh) / -2) + 76px))
       rotate(calc(var(--angle) * -1));
   }
 
@@ -626,7 +631,7 @@ h1 {
     font-size: 17px;
     transform:
       rotate(var(--angle))
-      translateY(calc((min(78vw, 270px, 38dvh) / -2) + 42px))
+      translateY(calc((min(78vw, 270px, 38dvh) / -2) + 54px))
       rotate(calc(var(--angle) * -1));
   }
 
@@ -635,6 +640,10 @@ h1 {
     transform:
       rotate(var(--angle))
       translateY(calc((min(78vw, 270px, 38dvh) / -2) + 22px));
+  }
+
+  .hour-mark {
+    height: 18px;
   }
 
   .hour-hand {
