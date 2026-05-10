@@ -15,10 +15,10 @@
       </div>
     </section>
 
-    <main class="app app-hidden" id="app" aria-labelledby="app-title">
+    <main class="app app-hidden" id="clockChallengeScreen" aria-labelledby="app-title">
       <header class="challenge-screen-header">
         <h1 id="app-title">Випробування годинник</h1>
-        <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+        <button class="show-button secondary-button" type="button" data-clock-home-button>На головну</button>
       </header>
 
       <section class="clock-panel">
@@ -84,11 +84,11 @@
     <section class="multiplication-screen app-hidden" id="multiplicationScreen" aria-labelledby="multiplication-title">
       <header class="challenge-screen-header">
         <h1 id="multiplication-title">Випробування множення</h1>
-        <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+        <button class="show-button secondary-button" type="button" data-multiplication-home-button>На головну</button>
       </header>
     </section>
 
-    <section class="winner-screen app-hidden" id="winnerScreen" aria-labelledby="winner-title">
+    <section class="winner-screen app-hidden" id="clockResultScreen" aria-labelledby="winner-title">
       <h1 id="winner-title">Випробування завершено.</h1>
       <p class="hint">Ваш результат:</p>
       <div class="winner-stats" aria-live="polite">
@@ -97,7 +97,7 @@
         <span class="score-label">Рахунок</span>
         <span class="score-value" id="winnerScore">0</span>
       </div>
-      <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+      <button class="show-button secondary-button" type="button" data-clock-home-button>На головну</button>
     </section>
 
     <footer class="site-footer" aria-labelledby="contacts-title">
@@ -108,6 +108,8 @@
       </address>
     </footer>
 
+    <script src="challenges/clock/clockChallenge.js"></script>
+    <script src="challenges/multiplication/multiplicationChallenge.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
