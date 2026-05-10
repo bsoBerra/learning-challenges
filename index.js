@@ -36,8 +36,11 @@ function pointerMinute(event) {
   return Math.round(pointerDegrees(event) / 6) % 60;
 }
 
-function pointerHour(event) {
-  return Math.round(pointerDegrees(event) / 30) % 12;
+function setTimeFromHourPointer(event) {
+  const totalMinutes = Math.round(pointerDegrees(event) * 2) % 720;
+
+  state.hour = Math.floor(totalMinutes / 60) % 12;
+  state.minute = totalMinutes % 60;
 }
 
 function hideDigitalTime() {
@@ -73,7 +76,7 @@ function setTimeFromPointer(event) {
   }
 
   if (state.activeHand === "hour") {
-    state.hour = pointerHour(event);
+    setTimeFromHourPointer(event);
   }
 
   renderHands();
