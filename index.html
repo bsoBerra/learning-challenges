@@ -10,12 +10,17 @@
     <section class="start-screen" id="startScreen" aria-labelledby="start-title">
       <h1 id="start-title">Випробування</h1>
       <div class="challenge-grid">
-        <button class="show-button start-button" id="startButton" type="button">Розпочати випробування годинник</button>
+        <button class="show-button start-button" id="startButton" type="button">Випробування годинник</button>
         <button class="show-button start-button" id="multiplicationButton" type="button">Випробування множення</button>
       </div>
     </section>
 
     <main class="app app-hidden" id="app" aria-labelledby="app-title">
+      <header class="challenge-screen-header">
+        <h1 id="app-title">Випробування годинник</h1>
+        <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+      </header>
+
       <section class="clock-panel">
         <div class="clock" id="clock" aria-label="Інтерактивний циферблат">
           <div class="minute-marks" id="minuteMarks" aria-hidden="true"></div>
@@ -38,9 +43,7 @@
         </div>
       </section>
 
-      <aside class="controls" aria-labelledby="app-title">
-        <h1 id="app-title">Годинник</h1>
-        <p class="hint">Натисніть кнопку, щоб згенерувати випадковий час.</p>
+      <aside class="controls" aria-label="Керування випробуванням годинник">
         <div class="score" aria-live="polite">
           <span class="score-label">Генерацій</span>
           <span class="score-value" id="generationCountValue">1</span>
@@ -74,14 +77,15 @@
         <button class="show-button" id="showTimeButton" type="button">Перевірити</button>
         <button class="show-button" id="randomTimeButton" type="button">Наступний</button>
         <button class="show-button" id="claimPrizeButton" type="button" disabled>Завершити випробування</button>
-        <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
         <output class="digital-time hidden" id="digitalTime" aria-live="polite"></output>
       </aside>
     </main>
 
     <section class="multiplication-screen app-hidden" id="multiplicationScreen" aria-labelledby="multiplication-title">
-      <h1 id="multiplication-title">Випробування множення</h1>
-      <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+      <header class="challenge-screen-header">
+        <h1 id="multiplication-title">Випробування множення</h1>
+        <button class="show-button secondary-button" type="button" data-home-button>На головну</button>
+      </header>
     </section>
 
     <section class="winner-screen app-hidden" id="winnerScreen" aria-labelledby="winner-title">
