@@ -212,6 +212,68 @@ h1 {
   outline-offset: 3px;
 }
 
+.answer-time {
+  display: grid;
+  grid-template-columns: repeat(2, 44px) 16px repeat(2, 44px);
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 112px;
+  padding: 10px;
+  border: 2px solid #c9d4dd;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.answer-digit-control {
+  display: grid;
+  grid-template-rows: 28px 42px 28px;
+  align-items: center;
+  justify-items: center;
+}
+
+.digit-button {
+  width: 34px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: #e5edf3;
+  color: #243447;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.digit-button:hover {
+  background: #d3dee8;
+}
+
+.digit-button:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 2px;
+}
+
+.answer-digit,
+.answer-separator {
+  font-size: 38px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.answer-digit {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 42px;
+}
+
+.answer-separator {
+  align-self: center;
+  padding-bottom: 2px;
+}
+
 .digital-time {
   min-height: 72px;
   display: grid;

@@ -33,8 +33,31 @@
       <aside class="controls" aria-labelledby="app-title">
         <h1 id="app-title">Годинник</h1>
         <p class="hint">Перетягніть годинну або хвилинну стрілку мишею.</p>
-        <button class="show-button" id="showTimeButton" type="button">Показати</button>
         <button class="show-button" id="randomTimeButton" type="button">Випадковий час</button>
+        <div class="answer-time" aria-label="Поле для вказання часу">
+          <div class="answer-digit-control">
+            <button class="digit-button" type="button" data-answer-step="hourTens" data-direction="1" aria-label="Збільшити десятки годин">▲</button>
+            <span class="answer-digit" data-answer-digit="hourTens">0</span>
+            <button class="digit-button" type="button" data-answer-step="hourTens" data-direction="-1" aria-label="Зменшити десятки годин">▼</button>
+          </div>
+          <div class="answer-digit-control">
+            <button class="digit-button" type="button" data-answer-step="hourOnes" data-direction="1" aria-label="Збільшити одиниці годин">▲</button>
+            <span class="answer-digit" data-answer-digit="hourOnes">0</span>
+            <button class="digit-button" type="button" data-answer-step="hourOnes" data-direction="-1" aria-label="Зменшити одиниці годин">▼</button>
+          </div>
+          <span class="answer-separator">:</span>
+          <div class="answer-digit-control">
+            <button class="digit-button" type="button" data-answer-step="minuteTens" data-direction="1" aria-label="Збільшити десятки хвилин">▲</button>
+            <span class="answer-digit" data-answer-digit="minuteTens">0</span>
+            <button class="digit-button" type="button" data-answer-step="minuteTens" data-direction="-1" aria-label="Зменшити десятки хвилин">▼</button>
+          </div>
+          <div class="answer-digit-control">
+            <button class="digit-button" type="button" data-answer-step="minuteOnes" data-direction="1" aria-label="Збільшити одиниці хвилин">▲</button>
+            <span class="answer-digit" data-answer-digit="minuteOnes">0</span>
+            <button class="digit-button" type="button" data-answer-step="minuteOnes" data-direction="-1" aria-label="Зменшити одиниці хвилин">▼</button>
+          </div>
+        </div>
+        <button class="show-button" id="showTimeButton" type="button">Показати</button>
         <output class="digital-time hidden" id="digitalTime" aria-live="polite"></output>
       </aside>
     </main>

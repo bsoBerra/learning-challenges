@@ -5,12 +5,21 @@ const minuteHand = document.querySelector("#minuteHand");
 const showTimeButton = document.querySelector("#showTimeButton");
 const randomTimeButton = document.querySelector("#randomTimeButton");
 const digitalTime = document.querySelector("#digitalTime");
+const answerButtons = document.querySelectorAll("[data-answer-step]");
+const answerDigits = {
+  hourTens: document.querySelector("[data-answer-digit='hourTens']"),
+  hourOnes: document.querySelector("[data-answer-digit='hourOnes']"),
+  minuteTens: document.querySelector("[data-answer-digit='minuteTens']"),
+  minuteOnes: document.querySelector("[data-answer-digit='minuteOnes']"),
+};
 
 const state = {
   hour: 10,
   minute: 10,
   activeHand: null,
   previousMinute: null,
+  answerHour: 0,
+  answerMinute: 0,
 };
 
 function createMinuteMarks() {
@@ -32,6 +41,52 @@ function displayHour() {
 
 function randomInteger(max) {
   return Math.floor(Math.random() * max);
+}
+
+function wrap(value, max) {
+  return ((value % max) + max) % max;
+}
+
+function renderAnswerTime() {
+  const hour = pad(state.answerHour);
+  const minute = pad(state.answerMinute);
+
+  answerDigits.hourTens.textContent = hour[0];
+  answerDigits.hourOnes.textContent = hour[1];
+  answerDigits.minuteTens.textContent = minute[0];
+  answerDigits.minuteOnes.textContent = minute[1];
+}
+
+function setAnswerHour(hour) {
+  state.answerHour = wrap(hour, 12);
+}
+
+function changeAnswerDigit(step, direction) {
+  const hourTens = Math.floor(state.answerHour / 10);
+  const hourOnes = state.answerHour % 10;
+  const minuteTens = Math.floor(state.answerMinute / 10);
+  const minuteOnes = state.answerMinute % 10;
+
+  if (step === "hourTens") {
+    const nextHourTens = wrap(hourTens + direction, 2);
+    const maxHourOnes = nextHourTens === 1 ? 1 : 9;
+    setAnswerHour(nextHourTens * 10 + Math.min(hourOnes, maxHourOnes));
+  }
+
+  if (step === "hourOnes") {
+    const maxHourOnes = hourTens === 1 ? 2 : 10;
+    setAnswerHour(hourTens * 10 + wrap(hourOnes + direction, maxHourOnes));
+  }
+
+  if (step === "minuteTens") {
+    state.answerMinute = wrap(minuteTens + direction, 6) * 10 + minuteOnes;
+  }
+
+  if (step === "minuteOnes") {
+    state.answerMinute = minuteTens * 10 + wrap(minuteOnes + direction, 10);
+  }
+
+  renderAnswerTime();
 }
 
 function normalizeDegrees(degrees) {
@@ -150,5 +205,12 @@ randomTimeButton.addEventListener("click", () => {
   hideDigitalTime();
 });
 
+answerButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    changeAnswerDigit(button.dataset.answerStep, Number(button.dataset.direction));
+  });
+});
+
 createMinuteMarks();
+renderAnswerTime();
 renderHands();
