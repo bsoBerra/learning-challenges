@@ -2,6 +2,8 @@ const clock = document.querySelector("#clock");
 const app = document.querySelector("#app");
 const startScreen = document.querySelector("#startScreen");
 const startButton = document.querySelector("#startButton");
+const multiplicationButton = document.querySelector("#multiplicationButton");
+const multiplicationScreen = document.querySelector("#multiplicationScreen");
 const minuteMarks = document.querySelector("#minuteMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
@@ -15,6 +17,7 @@ const generationCountValue = document.querySelector("#generationCountValue");
 const winnerScreen = document.querySelector("#winnerScreen");
 const winnerGenerationCount = document.querySelector("#winnerGenerationCount");
 const winnerScore = document.querySelector("#winnerScore");
+const homeButtons = document.querySelectorAll("[data-home-button]");
 const answerButtons = document.querySelectorAll("[data-answer-step]");
 const answerDigits = {
   hourTens: document.querySelector("[data-answer-digit='hourTens']"),
@@ -63,7 +66,15 @@ function showWinnerScreen() {
   winnerScore.textContent = state.score;
   startScreen.classList.add("app-hidden");
   app.classList.add("app-hidden");
+  multiplicationScreen.classList.add("app-hidden");
   winnerScreen.classList.remove("app-hidden");
+}
+
+function showStartScreen() {
+  app.classList.add("app-hidden");
+  multiplicationScreen.classList.add("app-hidden");
+  winnerScreen.classList.add("app-hidden");
+  startScreen.classList.remove("app-hidden");
 }
 
 function changeScore(delta) {
@@ -226,7 +237,19 @@ answerButtons.forEach((button) => {
 
 startButton.addEventListener("click", () => {
   startScreen.classList.add("app-hidden");
+  multiplicationScreen.classList.add("app-hidden");
   app.classList.remove("app-hidden");
+});
+
+multiplicationButton.addEventListener("click", () => {
+  startScreen.classList.add("app-hidden");
+  app.classList.add("app-hidden");
+  winnerScreen.classList.add("app-hidden");
+  multiplicationScreen.classList.remove("app-hidden");
+});
+
+homeButtons.forEach((button) => {
+  button.addEventListener("click", showStartScreen);
 });
 
 createMinuteMarks();

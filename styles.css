@@ -27,6 +27,7 @@ body {
 }
 
 .start-screen,
+.multiplication-screen,
 .winner-screen {
   width: min(520px, 100%);
   min-height: 0;
@@ -35,6 +36,14 @@ body {
   gap: clamp(18px, 3dvh, 28px);
   align-self: center;
   text-align: center;
+}
+
+.multiplication-screen {
+  width: min(1120px, 100%);
+  align-content: start;
+  justify-items: start;
+  align-self: start;
+  text-align: left;
 }
 
 .start-screen {
@@ -314,6 +323,16 @@ h1 {
 
 .show-button:hover {
   background: linear-gradient(135deg, #ff4ca0, #8c57ff);
+}
+
+.secondary-button {
+  background: rgba(32, 40, 80, 0.92);
+  border: 2px solid rgba(138, 247, 255, 0.5);
+  box-shadow: none;
+}
+
+.secondary-button:hover {
+  background: rgba(46, 57, 108, 0.96);
 }
 
 .show-button:disabled,
