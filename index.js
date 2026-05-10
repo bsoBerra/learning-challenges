@@ -1,4 +1,5 @@
 const clock = document.querySelector("#clock");
+const minuteMarks = document.querySelector("#minuteMarks");
 const hourHand = document.querySelector("#hourHand");
 const minuteHand = document.querySelector("#minuteHand");
 const showTimeButton = document.querySelector("#showTimeButton");
@@ -10,6 +11,19 @@ const state = {
   activeHand: null,
   previousMinute: null,
 };
+
+function createMinuteMarks() {
+  for (let minute = 0; minute < 60; minute += 1) {
+    if (minute % 5 === 0) {
+      continue;
+    }
+
+    const mark = document.createElement("span");
+    mark.className = "minute-mark";
+    mark.style.setProperty("--angle", `${minute * 6}deg`);
+    minuteMarks.append(mark);
+  }
+}
 
 function pad(value) {
   return String(value).padStart(2, "0");
@@ -125,4 +139,5 @@ showTimeButton.addEventListener("click", () => {
   digitalTime.classList.remove("hidden");
 });
 
+createMinuteMarks();
 renderHands();

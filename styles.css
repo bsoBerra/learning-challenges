@@ -53,21 +53,6 @@ body {
   z-index: 1;
 }
 
-.clock::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 50%;
-  background: repeating-conic-gradient(
-    from 0deg,
-    #8fa0ad 0deg 0.8deg,
-    transparent 0.8deg 6deg
-  );
-  mask: radial-gradient(circle, transparent 0 calc(100% - 18px), #000 calc(100% - 17px));
-  pointer-events: none;
-  z-index: 1;
-}
-
 .tick {
   position: absolute;
   left: 50%;
@@ -85,6 +70,29 @@ body {
     rotate(var(--angle))
     translateY(calc((min(74vw, 520px) / -2) + 58px))
     rotate(calc(var(--angle) * -1));
+}
+
+.minute-marks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.minute-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 18px;
+  margin-left: -1.5px;
+  margin-top: -9px;
+  border-radius: 999px;
+  background: #243447;
+  transform:
+    rotate(var(--angle))
+    translateY(calc((min(74vw, 520px) / -2) + 30px));
+  transform-origin: 50% 50%;
 }
 
 .tick-12 { --angle: 0deg; }
@@ -245,6 +253,12 @@ h1 {
       rotate(var(--angle))
       translateY(calc((min(92vw, 500px) / -2) + 52px))
       rotate(calc(var(--angle) * -1));
+  }
+
+  .minute-mark {
+    transform:
+      rotate(var(--angle))
+      translateY(calc((min(92vw, 500px) / -2) + 28px));
   }
 
   .hour-hand {
