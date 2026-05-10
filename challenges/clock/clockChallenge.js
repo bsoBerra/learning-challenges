@@ -25,7 +25,7 @@ function createClockChallenge({ onNavigateHome }) {
   const state = {
     hour: 10,
     minute: 10,
-    answerHour: 0,
+    answerHour: 12,
     answerMinute: 0,
     isChecked: false,
     score: 0,
@@ -133,13 +133,17 @@ function createClockChallenge({ onNavigateHome }) {
   }
 
   function resetAnswerTime() {
-    state.answerHour = 0;
+    state.answerHour = 12;
     state.answerMinute = 0;
     renderAnswerTime();
   }
 
   function setAnswerHour(hour) {
-    state.answerHour = wrap(hour, 12);
+    state.answerHour = ((hour - 1) % 12 + 12) % 12 + 1;
+  }
+
+  function answerHourValue() {
+    return state.answerHour === 12 ? 0 : state.answerHour;
   }
 
   function changeAnswerDigit(step, direction) {
@@ -150,13 +154,15 @@ function createClockChallenge({ onNavigateHome }) {
 
     if (step === "hourTens") {
       const nextHourTens = wrap(hourTens + direction, 2);
-      const maxHourOnes = nextHourTens === 1 ? 1 : 9;
-      setAnswerHour(nextHourTens * 10 + Math.min(hourOnes, maxHourOnes));
+      const nextHourOnes = nextHourTens === 0 ? Math.max(1, hourOnes) : Math.min(hourOnes, 2);
+      setAnswerHour(nextHourTens * 10 + nextHourOnes);
     }
 
     if (step === "hourOnes") {
-      const maxHourOnes = hourTens === 1 ? 2 : 10;
-      setAnswerHour(hourTens * 10 + wrap(hourOnes + direction, maxHourOnes));
+      const minHourOnes = hourTens === 0 ? 1 : 0;
+      const maxHourOnes = hourTens === 1 ? 2 : 9;
+      const nextHourOnes = wrap(hourOnes - minHourOnes + direction, maxHourOnes - minHourOnes + 1) + minHourOnes;
+      setAnswerHour(hourTens * 10 + nextHourOnes);
     }
 
     if (step === "minuteTens") {
@@ -183,7 +189,7 @@ function createClockChallenge({ onNavigateHome }) {
   }
 
   showTimeButton.addEventListener("click", () => {
-    const isCorrect = state.answerHour === state.hour && state.answerMinute === state.minute;
+    const isCorrect = answerHourValue() === state.hour && state.answerMinute === state.minute;
 
     digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
     digitalTime.classList.remove("hidden");
