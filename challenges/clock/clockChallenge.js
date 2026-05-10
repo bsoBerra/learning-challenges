@@ -141,6 +141,17 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
     setCheckedMode(true);
   }
 
+  function checkCurrentAnswer() {
+    const isCorrect = answerHourValue() === state.hour && state.answerMinute === state.minute;
+
+    digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
+    digitalTime.classList.remove("hidden");
+
+    renderAnswerResult(isCorrect);
+    changeScore(isCorrect ? 2 : -1);
+    setCheckedMode(true);
+  }
+
   function setState(nextState) {
     if (!nextState || typeof nextState !== "object") {
       return;
@@ -280,14 +291,7 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
   }
 
   showTimeButton.addEventListener("click", () => {
-    const isCorrect = answerHourValue() === state.hour && state.answerMinute === state.minute;
-
-    digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
-    digitalTime.classList.remove("hidden");
-
-    renderAnswerResult(isCorrect);
-    changeScore(isCorrect ? 2 : -1);
-    setCheckedMode(true);
+    checkCurrentAnswer();
     notifyStateChange();
   });
 
@@ -295,7 +299,7 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
     increaseGenerationCount();
 
     if (!state.isChecked) {
-      changeScore(-1);
+      checkCurrentAnswer();
     }
 
     if (state.generationCount > 50) {
