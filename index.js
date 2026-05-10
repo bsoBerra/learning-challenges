@@ -14,10 +14,6 @@ const state = {
 
 function createMinuteMarks() {
   for (let minute = 0; minute < 60; minute += 1) {
-    if (minute % 5 === 0) {
-      continue;
-    }
-
     const mark = document.createElement("span");
     mark.className = "minute-mark";
     mark.style.setProperty("--angle", `${minute * 6}deg`);
