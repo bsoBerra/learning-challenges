@@ -5,6 +5,8 @@ const minuteHand = document.querySelector("#minuteHand");
 const showTimeButton = document.querySelector("#showTimeButton");
 const randomTimeButton = document.querySelector("#randomTimeButton");
 const digitalTime = document.querySelector("#digitalTime");
+const answerResult = document.querySelector("#answerResult");
+const scoreValue = document.querySelector("#scoreValue");
 const answerButtons = document.querySelectorAll("[data-answer-step]");
 const answerDigits = {
   hourTens: document.querySelector("[data-answer-digit='hourTens']"),
@@ -20,6 +22,9 @@ const state = {
   previousMinute: null,
   answerHour: 0,
   answerMinute: 0,
+  isChecked: false,
+  score: 0,
+  wasLastAnswerCorrect: false,
 };
 
 function createMinuteMarks() {
@@ -43,6 +48,11 @@ function randomInteger(max) {
   return Math.floor(Math.random() * max);
 }
 
+function changeScore(delta) {
+  state.score = Math.max(0, state.score + delta);
+  scoreValue.textContent = state.score;
+}
+
 function wrap(value, max) {
   return ((value % max) + max) % max;
 }
@@ -55,6 +65,36 @@ function renderAnswerTime() {
   answerDigits.hourOnes.textContent = hour[1];
   answerDigits.minuteTens.textContent = minute[0];
   answerDigits.minuteOnes.textContent = minute[1];
+}
+
+function renderAnswerResult(isCorrect) {
+  answerResult.textContent = isCorrect ? "✓" : "✕";
+  answerResult.classList.toggle("correct", isCorrect);
+  answerResult.classList.toggle("incorrect", !isCorrect);
+  answerResult.classList.remove("hidden");
+}
+
+function clearAnswerResult() {
+  answerResult.textContent = "";
+  answerResult.classList.remove("correct", "incorrect");
+  answerResult.classList.add("hidden");
+}
+
+function setCheckedMode(isChecked) {
+  state.isChecked = isChecked;
+  showTimeButton.disabled = isChecked;
+  hourHand.disabled = isChecked;
+  minuteHand.disabled = isChecked;
+
+  answerButtons.forEach((button) => {
+    button.disabled = isChecked;
+  });
+}
+
+function resetAnswerTime() {
+  state.answerHour = 0;
+  state.answerMinute = 0;
+  renderAnswerTime();
 }
 
 function setAnswerHour(hour) {
@@ -154,6 +194,10 @@ function setTimeFromPointer(event) {
 }
 
 function startDrag(hand, event) {
+  if (state.isChecked) {
+    return;
+  }
+
   state.activeHand = hand;
   state.previousMinute = hand === "minute" ? state.minute : null;
   event.currentTarget.setPointerCapture(event.pointerId);
@@ -191,22 +235,41 @@ hourHand.addEventListener("pointercancel", stopDrag);
 minuteHand.addEventListener("pointercancel", stopDrag);
 
 showTimeButton.addEventListener("click", () => {
+  const isCorrect = state.answerHour === state.hour && state.answerMinute === state.minute;
+
   digitalTime.textContent = `${pad(displayHour())}:${pad(state.minute)}`;
   digitalTime.classList.remove("hidden");
+
+  renderAnswerResult(isCorrect);
+  changeScore(isCorrect ? 1 : -1);
+  state.wasLastAnswerCorrect = isCorrect;
+  setCheckedMode(true);
 });
 
 randomTimeButton.addEventListener("click", () => {
+  if (!state.wasLastAnswerCorrect) {
+    changeScore(-1);
+  }
+
   state.hour = randomInteger(12);
   state.minute = randomInteger(60);
   state.activeHand = null;
   state.previousMinute = null;
+  state.wasLastAnswerCorrect = false;
 
+  resetAnswerTime();
+  clearAnswerResult();
+  setCheckedMode(false);
   renderHands();
   hideDigitalTime();
 });
 
 answerButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    if (state.isChecked) {
+      return;
+    }
+
     changeAnswerDigit(button.dataset.answerStep, Number(button.dataset.direction));
   });
 });
