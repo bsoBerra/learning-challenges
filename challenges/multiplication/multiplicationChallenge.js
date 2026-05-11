@@ -18,6 +18,8 @@ function createMultiplicationChallenge({ onNavigateHome, onStateChange = () => {
   const correctAnswer = document.querySelector("#multiplicationCorrectAnswer");
   const scoreValue = document.querySelector("#multiplicationScoreValue");
   const generationCountValue = document.querySelector("#multiplicationGenerationCountValue");
+  const selectedFactorsValue = document.querySelector("#multiplicationSelectedFactors");
+  const winnerSelectedFactorsValue = document.querySelector("#multiplicationWinnerSelectedFactors");
   const winnerGenerationCount = document.querySelector("#multiplicationWinnerGenerationCount");
   const winnerScore = document.querySelector("#multiplicationWinnerScore");
   const homeButtons = document.querySelectorAll("[data-multiplication-home-button]");
@@ -109,6 +111,19 @@ function createMultiplicationChallenge({ onNavigateHome, onStateChange = () => {
     });
 
     startButton.disabled = state.selectedFactors.length === 0;
+    renderSelectedFactorsList(selectedFactorsValue);
+    renderSelectedFactorsList(winnerSelectedFactorsValue);
+  }
+
+  function renderSelectedFactorsList(container) {
+    container.replaceChildren();
+
+    state.selectedFactors.forEach((factor) => {
+      const item = document.createElement("span");
+      item.className = "selected-factor-chip";
+      item.textContent = factor;
+      container.append(item);
+    });
   }
 
   function renderScore() {
@@ -231,6 +246,7 @@ function createMultiplicationChallenge({ onNavigateHome, onStateChange = () => {
   function showResult() {
     currentView = "result";
     closeFinishConfirmModal();
+    renderSelectedFactorsList(winnerSelectedFactorsValue);
     winnerGenerationCount.textContent = state.generationCount;
     winnerScore.textContent = state.score;
     screen.classList.add("app-hidden");
@@ -263,6 +279,7 @@ function createMultiplicationChallenge({ onNavigateHome, onStateChange = () => {
     return {
       ...state,
       selectedFactors: [...state.selectedFactors],
+      usedExamples: [...state.usedExamples],
       currentView,
     };
   }

@@ -114,6 +114,10 @@
 
       <div class="multiplication-challenge app-hidden" id="multiplicationChallenge">
         <aside class="controls multiplication-controls" aria-label="Керування випробуванням множення">
+          <div class="selected-factors-panel" aria-label="Обрані цифри">
+            <span class="selected-factors-label">Обрані цифри</span>
+            <div class="selected-factors-list" id="multiplicationSelectedFactors"></div>
+          </div>
           <div class="score" aria-live="polite">
             <span class="score-label">Генерацій</span>
             <span class="score-value" id="multiplicationGenerationCountValue">1</span>
@@ -152,6 +156,10 @@
         <button class="show-button secondary-button" type="button" data-multiplication-home-button>На головну</button>
       </header>
       <p class="hint">Ваш результат:</p>
+      <div class="selected-factors-panel result-selected-factors" aria-label="Обрані цифри">
+        <span class="selected-factors-label">Обрані цифри</span>
+        <div class="selected-factors-list" id="multiplicationWinnerSelectedFactors"></div>
+      </div>
       <div class="winner-stats" aria-live="polite">
         <span class="score-label">Генерацій</span>
         <span class="score-value" id="multiplicationWinnerGenerationCount">0</span>
