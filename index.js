@@ -25,6 +25,7 @@ function getAppState(screen = activeScreen) {
   return {
     screen,
     clock: clockChallenge.getState(),
+    multiplication: multiplicationChallenge.getState(),
   };
 }
 
@@ -56,6 +57,7 @@ function showChallengeListScreen() {
   activeScreen = "list";
   clockChallenge.reset();
   clockChallenge.hide();
+  multiplicationChallenge.reset();
   multiplicationChallenge.hide();
   challengeListScreen.classList.remove("app-hidden");
   updateUrlState();
@@ -84,6 +86,7 @@ clockChallenge = createClockChallenge({
 
 multiplicationChallenge = createMultiplicationChallenge({
   onNavigateHome: showChallengeListScreen,
+  onStateChange: () => updateUrlState("multiplication"),
 });
 
 clockChallengeButton.addEventListener("click", showClockChallenge);
@@ -93,6 +96,7 @@ const restoredState = readUrlState();
 
 if (restoredState) {
   clockChallenge.setState(restoredState.clock);
+  multiplicationChallenge.setState(restoredState.multiplication);
 
   if (restoredState.screen === "clock") {
     showClockChallenge();

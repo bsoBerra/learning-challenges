@@ -96,6 +96,68 @@
         <h1 id="multiplication-title">Випробування множення</h1>
         <button class="show-button secondary-button" type="button" data-multiplication-home-button>На головну</button>
       </header>
+
+      <div class="multiplication-setup" id="multiplicationSetup">
+        <div class="multiplication-number-grid" aria-label="Оберіть цифри для множення">
+          <button class="number-tile" type="button" data-factor-tile="2" aria-pressed="false">2</button>
+          <button class="number-tile" type="button" data-factor-tile="3" aria-pressed="false">3</button>
+          <button class="number-tile" type="button" data-factor-tile="4" aria-pressed="false">4</button>
+          <button class="number-tile" type="button" data-factor-tile="5" aria-pressed="false">5</button>
+          <button class="number-tile" type="button" data-factor-tile="6" aria-pressed="false">6</button>
+          <button class="number-tile" type="button" data-factor-tile="7" aria-pressed="false">7</button>
+          <button class="number-tile" type="button" data-factor-tile="8" aria-pressed="false">8</button>
+          <button class="number-tile" type="button" data-factor-tile="9" aria-pressed="false">9</button>
+          <button class="number-tile" type="button" data-factor-tile="10" aria-pressed="false">10</button>
+        </div>
+        <button class="show-button multiplication-start-button" id="startMultiplicationButton" type="button" disabled>Почати</button>
+      </div>
+
+      <div class="multiplication-challenge app-hidden" id="multiplicationChallenge">
+        <aside class="controls multiplication-controls" aria-label="Керування випробуванням множення">
+          <div class="score" aria-live="polite">
+            <span class="score-label">Генерацій</span>
+            <span class="score-value" id="multiplicationGenerationCountValue">1</span>
+            <span class="score-label">Рахунок</span>
+            <span class="score-value" id="multiplicationScoreValue">0</span>
+          </div>
+          <div class="multiplication-example">
+            <span id="multiplicationFirstFactor">4</span>
+            <span>*</span>
+            <span id="multiplicationSecondFactor">5</span>
+            <span>=</span>
+            <input class="multiplication-answer-input" id="multiplicationAnswerInput" type="number" inputmode="numeric" min="0" aria-label="Відповідь" />
+            <output class="answer-result hidden" id="multiplicationAnswerResult" aria-live="polite"></output>
+          </div>
+          <button class="show-button" id="checkMultiplicationButton" type="button">Перевірити</button>
+          <button class="show-button" id="nextMultiplicationButton" type="button">Наступний</button>
+          <button class="show-button" id="finishMultiplicationButton" type="button" disabled>Завершити випробування</button>
+          <output class="digital-time hidden" id="multiplicationCorrectAnswer" aria-live="polite"></output>
+        </aside>
+      </div>
+
+      <div class="confirm-modal app-hidden" id="multiplicationFinishConfirmModal" role="dialog" aria-modal="true" aria-labelledby="multiplication-finish-confirm-title">
+        <div class="confirm-dialog">
+          <h2 id="multiplication-finish-confirm-title">Завершити випробування?</h2>
+          <div class="confirm-actions">
+            <button class="show-button" id="confirmMultiplicationFinishButton" type="button">Так</button>
+            <button class="show-button secondary-button" id="cancelMultiplicationFinishButton" type="button">Ні</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="winner-screen app-hidden" id="multiplicationResultScreen" aria-labelledby="multiplication-winner-title">
+      <header class="challenge-screen-header">
+        <h1 id="multiplication-winner-title">Випробування завершено.</h1>
+        <button class="show-button secondary-button" type="button" data-multiplication-home-button>На головну</button>
+      </header>
+      <p class="hint">Ваш результат:</p>
+      <div class="winner-stats" aria-live="polite">
+        <span class="score-label">Генерацій</span>
+        <span class="score-value" id="multiplicationWinnerGenerationCount">0</span>
+        <span class="score-label">Рахунок</span>
+        <span class="score-value" id="multiplicationWinnerScore">0</span>
+      </div>
     </section>
 
     <section class="winner-screen app-hidden" id="clockResultScreen" aria-labelledby="winner-title">

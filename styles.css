@@ -46,6 +46,101 @@ body {
   text-align: left;
 }
 
+.multiplication-setup,
+.multiplication-challenge {
+  width: min(760px, 100%);
+  display: grid;
+  gap: clamp(16px, 2.6dvh, 24px);
+}
+
+.multiplication-number-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 12px;
+}
+
+.number-tile {
+  min-height: clamp(76px, 10dvh, 104px);
+  border: 2px solid rgba(138, 247, 255, 0.5);
+  border-radius: 8px;
+  background: rgba(32, 40, 80, 0.92);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: clamp(30px, 5dvh, 48px);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 10px 0 rgba(0, 0, 0, 0.22);
+}
+
+.number-tile:hover {
+  background: rgba(46, 57, 108, 0.96);
+}
+
+.number-tile.selected {
+  border-color: rgba(255, 210, 63, 0.9);
+  background: #ffd23f;
+  color: #121633;
+  box-shadow:
+    inset 0 -5px 0 rgba(0, 0, 0, 0.14),
+    0 10px 0 #ff6b2b,
+    0 0 24px rgba(255, 210, 63, 0.3);
+}
+
+.number-tile:focus-visible {
+  outline: 4px solid #f2b705;
+  outline-offset: 3px;
+}
+
+.multiplication-start-button {
+  width: min(280px, 100%);
+}
+
+.multiplication-controls {
+  width: min(520px, 100%);
+}
+
+.multiplication-example {
+  display: grid;
+  grid-template-columns: auto auto auto auto minmax(96px, 150px) 34px;
+  align-items: center;
+  justify-content: start;
+  gap: clamp(8px, 1.4dvh, 14px);
+  min-height: clamp(96px, 12dvh, 124px);
+  padding: 14px;
+  border: 2px solid rgba(255, 210, 63, 0.66);
+  border-radius: 8px;
+  background: rgba(255, 210, 63, 0.12);
+  color: #ffffff;
+  font-size: clamp(34px, min(8vw, 6dvh), 54px);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.multiplication-answer-input {
+  width: 100%;
+  height: clamp(52px, 7dvh, 68px);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #121633;
+  font: inherit;
+  text-align: center;
+  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.08);
+}
+
+.multiplication-answer-input:disabled {
+  opacity: 0.74;
+}
+
+.multiplication-answer-input:focus-visible {
+  outline: 4px solid #f2b705;
+  outline-offset: 3px;
+}
+
 .challenge-screen-header {
   width: 100%;
   display: flex;
@@ -567,6 +662,10 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .multiplication-number-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .app {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -622,6 +721,28 @@ h1 {
 
   .challenge-grid {
     gap: 12px;
+  }
+
+  .multiplication-number-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .number-tile {
+    min-height: 68px;
+    font-size: 30px;
+  }
+
+  .multiplication-example {
+    grid-template-columns: auto auto auto auto minmax(76px, 1fr) 28px;
+    gap: 6px;
+    min-height: 84px;
+    padding: 8px;
+    font-size: 30px;
+  }
+
+  .multiplication-answer-input {
+    height: 46px;
   }
 
   .start-button {
