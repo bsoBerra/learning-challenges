@@ -76,7 +76,7 @@ function createClockChallenge({ onNavigateHome, onStateChange = () => {} }) {
   }
 
   function updateClaimPrizeButton() {
-    claimPrizeButton.disabled = state.score <= 30;
+    claimPrizeButton.disabled = state.score < 30;
   }
 
   function hide() {

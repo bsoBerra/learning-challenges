@@ -98,7 +98,7 @@ function createMultiplicationChallenge({ onNavigateHome, onStateChange = () => {
   }
 
   function updateFinishButton() {
-    finishButton.disabled = state.score <= 30;
+    finishButton.disabled = state.score < 30;
   }
 
   function renderSelectedFactors() {
